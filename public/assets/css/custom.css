@@ -1,0 +1,26 @@
+.mobileFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+.mobileFooterDark {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333333;
+    text-align: center;
+}
+
+#loader {
+    /*
+    #23232b For BG
+    */
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #23232b url('../../assets/media/gif/loader.gif') no-repeat center;
+    z-index: 9999999;
+}
