@@ -91,7 +91,7 @@
 }
 .jqx-icon-search-blue:after {
     content: var(--jqx-icon-search);
-    color:
+    color: blue;
 
 }
 .jqx-calendar-blue {
@@ -387,7 +387,6 @@
     .jqx-button-blue.jqx-fill-state-focus.outlined,
     .jqx-button-blue.jqx-fill-state-focus.flat {
         box-shadow: none;
-        background: rgba(rgb(var(--jqx-primary-rgb)),0.15);
         color: var(--jqx-primary);
     }
 
@@ -1817,7 +1816,7 @@ input[type="text"].jqx-input-blue:-moz-placeholder, input[type="text"].jqx-widge
     color: #999999;
 }
 
-input[type="text"].jqx-input-blue:-webkit-input-placeholder, input[type="text"].jqx-widget-content-blue:-webkit-input-placeholder, input[type="textarea"].jqx-widget-content-blue:-webkit-input-placeholder, textarea.jqx-input-blue:-webkit-input-placeholder {
+input[type="text"].jqx-input-blue::-webkit-input-placeholder, input[type="text"].jqx-widget-content-blue::-webkit-input-placeholder, input[type="textarea"].jqx-widget-content-blue::-webkit-input-placeholder, textarea.jqx-input-blue::-webkit-input-placeholder {
     color: #999999;
 }
 
