@@ -56,7 +56,47 @@
 
 <script>
 
+    var authUserToken = `Bearer {{ session('_token') }}`;
+    var authUserId = `{{ session('_user_id') }}`;
+    var themeMode = `{{ session('_theme') == '' ? 'light' : session('_theme') }}`;
+    var jqxGridGlobalTheme = themeMode === 'light' ? 'metro' : 'metrodark';
+    var baseAssetUrl = `{{ asset('') }}`;
 
+    var ThemeSelector = $('#ThemeSelector');
+    var CompanySelector = $('#CompanySelector');
+
+    function getUserCompanies() {
+        $.ajax({
+            type: 'get',
+            url: '',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': token
+            },
+            data: {},
+            success: function () {
+
+            },
+            error: function (error) {
+                console.log(error);
+                if (parseInt(error.status) === 422) {
+                    $.each(error.responseJSON.response, function (i, error) {
+                        toastr.error(error[0]);
+                    });
+                } else {
+                    toastr.error(error.responseJSON.message);
+                }
+            }
+        });
+    }
+
+    ThemeSelector.change(function () {
+
+    });
+
+    CompanySelector.change(function () {
+
+    });
 
 </script>
 

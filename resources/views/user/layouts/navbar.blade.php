@@ -52,9 +52,9 @@
                                     <img alt="Logo" src="{{ asset('assets/media/logos/avatar.png') }}" />
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bolder d-flex align-items-center fs-5">Talha Can
+                                    <div class="fw-bolder d-flex align-items-center fs-5">{{ session('_user_name') }}
                                         <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"></span></div>
-                                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">test@test.com</a>
+                                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ session('_user_email') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5">Çıkış Yap</a>
+                            <a href="{{ route('user.web.authentication.logout') }}" class="menu-link px-5">Çıkış Yap</a>
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
