@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\User\UserController;
+namespace App\Http\Requests\Api\UserGuard\PermissionController;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class GetByIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required',
+            'permission_id' => 'required|integer',
         ];
     }
 }

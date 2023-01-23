@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\User\UserController;
+namespace App\Http\Requests\Api\UserGuard\RoleController;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetProfileRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class GetProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string'
         ];
     }
 }

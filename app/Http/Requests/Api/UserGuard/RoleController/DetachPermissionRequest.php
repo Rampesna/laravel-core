@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\User\UserController;
+namespace App\Http\Requests\Api\UserGuard\RoleController;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetAllRequest extends FormRequest
+class DetachPermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class GetAllRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'role_id' => 'required|integer',
+            'permission_id' => 'required|integer',
         ];
     }
 }

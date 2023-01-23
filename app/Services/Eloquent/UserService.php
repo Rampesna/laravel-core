@@ -141,4 +141,83 @@ class UserService implements IUserService
             return $user;
         }
     }
+
+    public function getCompanies(int $userId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            return new ServiceResponse(
+                true,
+                'User companies',
+                200,
+                $user->getData()->companies
+            );
+        } else {
+            return $user;
+        }
+    }
+
+
+    public function attachRole(int $userId, int $roleId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            $user->getData()->roles()->attach($roleId);
+            return new ServiceResponse(
+                true,
+                'Role attached to user',
+                200,
+                $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    public function detachRole(int $userId, int $roleId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            $user->getData()->roles()->detach($roleId);
+            return new ServiceResponse(
+                true,
+                'Role detached from user',
+                200,
+                $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    public function getRoles(int $userId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            return new ServiceResponse(
+                true,
+                'User roles',
+                200,
+                $user->getData()->roles
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    public function syncRoles(int $userId, array $roleId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            $user->getData()->roles()->sync($roleId);
+            return new ServiceResponse(
+                true,
+                'User roles synced',
+                200,
+                $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
 }

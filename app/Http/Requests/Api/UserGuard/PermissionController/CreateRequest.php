@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\User\UserController;
+namespace App\Http\Requests\Api\UserGuard\PermissionController;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetByEmailRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class GetByEmailRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email'
+            'name' => 'required|string'
         ];
     }
 }

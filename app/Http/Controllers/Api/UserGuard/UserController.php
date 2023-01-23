@@ -1,16 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\UserGuard;
 
 use App\Core\Controller;
-use App\Http\Requests\Api\User\UserController\LoginRequest;
-use App\Http\Requests\Api\User\UserController\GetProfileRequest;
-use App\Http\Requests\Api\User\UserController\GetAllRequest;
-use App\Http\Requests\Api\User\UserController\GetByIdRequest;
-use App\Http\Requests\Api\User\UserController\GetByEmailRequest;
-use App\Http\Requests\Api\User\UserController\DeleteRequest;
-use App\Interfaces\Eloquent\IUserService;
 use App\Core\HttpResponse;
+use App\Http\Requests\Api\UserGuard\UserController\AttachRoleRequest;
+use App\Http\Requests\Api\UserGuard\UserController\DeleteRequest;
+use App\Http\Requests\Api\UserGuard\UserController\DetachRoleRequest;
+use App\Http\Requests\Api\UserGuard\UserController\GetAllRequest;
+use App\Http\Requests\Api\UserGuard\UserController\GetByEmailRequest;
+use App\Http\Requests\Api\UserGuard\UserController\GetByIdRequest;
+use App\Http\Requests\Api\UserGuard\UserController\GetCompaniesRequest;
+use App\Http\Requests\Api\UserGuard\UserController\GetProfileRequest;
+use App\Http\Requests\Api\UserGuard\UserController\GetRolesRequest;
+use App\Http\Requests\Api\UserGuard\UserController\LoginRequest;
+use App\Http\Requests\Api\UserGuard\UserController\SyncRolesRequest;
+use App\Interfaces\Eloquent\IUserService;
 
 class UserController extends Controller
 {
@@ -122,6 +127,73 @@ class UserController extends Controller
             $request->id
         );
 
+        return $this->httpResponse(
+            $response->getMessage(),
+            $response->getStatusCode(),
+            $response->getData(),
+            $response->isSuccess()
+        );
+    }
+
+    /**
+     * @param GetCompaniesRequest $request
+     */
+    public function getCompanies(GetCompaniesRequest $request)
+    {
+        $response = $this->userService->getCompanies(
+            $request->user()->id
+        );
+        return $this->httpResponse(
+            $response->getMessage(),
+            $response->getStatusCode(),
+            $response->getData(),
+            $response->isSuccess()
+        );
+    }
+
+    public function attachRole(AttachRoleRequest $request) {
+        $response = $this->userService->attachRole(
+            $request->user()->id,
+            $request->role_id
+        );
+        return $this->httpResponse(
+            $response->getMessage(),
+            $response->getStatusCode(),
+            $response->getData(),
+            $response->isSuccess()
+        );
+    }
+
+    public function detachRole(DetachRoleRequest $request) {
+        $response = $this->userService->detachRole(
+            $request->user()->id,
+            $request->role_id
+        );
+        return $this->httpResponse(
+            $response->getMessage(),
+            $response->getStatusCode(),
+            $response->getData(),
+            $response->isSuccess()
+        );
+    }
+
+    public function getRoles(GetRolesRequest $request) {
+        $response = $this->userService->getRoles(
+            $request->user()->id
+        );
+        return $this->httpResponse(
+            $response->getMessage(),
+            $response->getStatusCode(),
+            $response->getData(),
+            $response->isSuccess()
+        );
+    }
+
+    public function syncRoles(SyncRolesRequest $request) {
+        $response = $this->userService->syncRoles(
+            $request->user()->id,
+            $request->role_id
+        );
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
