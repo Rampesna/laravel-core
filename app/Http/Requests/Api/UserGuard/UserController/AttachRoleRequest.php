@@ -24,8 +24,8 @@ class AttachRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer',
-            'role_id' => 'required|integer',
+            'userId' => 'required|integer',
+            'roleId' => 'required|integer',
         ];
     }
 }

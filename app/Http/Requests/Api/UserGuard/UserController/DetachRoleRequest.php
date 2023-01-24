@@ -24,8 +24,8 @@ class DetachRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer',
-            'role_id' => 'required|int',
+            'userId' => 'required|integer',
+            'roleId' => 'required|int',
         ];
     }
 }

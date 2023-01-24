@@ -24,7 +24,7 @@ class GetPermissionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'role_id' => 'required|integer',
+            'roleId' => 'required|integer',
         ];
     }
 }

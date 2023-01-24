@@ -154,7 +154,7 @@ class UserController extends Controller
     public function attachRole(AttachRoleRequest $request) {
         $response = $this->userService->attachRole(
             $request->user()->id,
-            $request->role_id
+            $request->roleId
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -167,7 +167,7 @@ class UserController extends Controller
     public function detachRole(DetachRoleRequest $request) {
         $response = $this->userService->detachRole(
             $request->user()->id,
-            $request->role_id
+            $request->roleId
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -192,7 +192,7 @@ class UserController extends Controller
     public function syncRoles(SyncRolesRequest $request) {
         $response = $this->userService->syncRoles(
             $request->user()->id,
-            $request->role_id
+            $request->roleIds
         );
         return $this->httpResponse(
             $response->getMessage(),

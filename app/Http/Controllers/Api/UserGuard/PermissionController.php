@@ -41,7 +41,7 @@ class PermissionController extends Controller
 
     public function getById(GetByIdRequest $request)
     {
-        $response = $this->IPermissionService->getById($request->permission_id);
+        $response = $this->IPermissionService->getById($request->permissionId);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
@@ -74,7 +74,7 @@ class PermissionController extends Controller
 
     public function delete(DeleteRequest $request)
     {
-        $response = $this->IPermissionService->delete($request->permission_id);
+        $response = $this->IPermissionService->delete($request->permissionId);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
@@ -85,7 +85,7 @@ class PermissionController extends Controller
 
     public function getRoles(GetRolesRequest $request)
     {
-        $response = $this->IPermissionService->getRoles($request->permission_id);
+        $response = $this->IPermissionService->getRoles($request->permissionId);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
@@ -96,7 +96,7 @@ class PermissionController extends Controller
 
     public function attachRole(AttachRoleRequest $request)
     {
-        $response = $this->IPermissionService->attachRoles($request->permission_id, $request->role_id);
+        $response = $this->IPermissionService->attachRoles($request->permissionId, $request->roleId);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
@@ -107,7 +107,7 @@ class PermissionController extends Controller
 
     public function detachRole(DetachRoleRequest $request)
     {
-        $response = $this->IPermissionService->detachRoles($request->permission_id, $request->role_id);
+        $response = $this->IPermissionService->detachRoles($request->permissionId, $request->roleId);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
@@ -118,7 +118,7 @@ class PermissionController extends Controller
 
     public function syncRoles(SyncRolesRequest $request)
     {
-        $response = $this->IPermissionService->syncRoles($request->permission_id, $request->role_ids);
+        $response = $this->IPermissionService->syncRoles($request->permissionId, $request->roleIds);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),

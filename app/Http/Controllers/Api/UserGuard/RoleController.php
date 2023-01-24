@@ -95,8 +95,8 @@ class RoleController extends Controller
     public function syncPermissions(SyncPermissionsRequest $request)
     {
         $response = $this->IRoleService->syncPermissions(
-            $request->role_id,
-            $request->permission_id
+            $request->roleId,
+            $request->permissionId
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -112,8 +112,8 @@ class RoleController extends Controller
      */
     public function attachPermission(AttachPermissionRequest $request){
         $response = $this->IRoleService->attachPermissions(
-            $request->role_id,
-            $request->permission_id
+            $request->roleId,
+            $request->permissionId
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -129,8 +129,8 @@ class RoleController extends Controller
      */
     public function detachPermission(DetachPermissionRequest $request){
         $response = $this->IRoleService->detachPermissions(
-            $request->role_id,
-            $request->permission_id
+            $request->roleId,
+            $request->permissionId
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -146,7 +146,7 @@ class RoleController extends Controller
      */
     public function delete(DeleteRequest $request){
         $response = $this->IRoleService->delete(
-            $request->role_id
+            $request->roleId
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -176,7 +176,7 @@ class RoleController extends Controller
      */
     public function getById(GetByIdRequest $request){
         $response = $this->IRoleService->getById(
-            $request->role_id
+            $request->roleId
         );
         return $this->httpResponse(
             $response->getMessage(),

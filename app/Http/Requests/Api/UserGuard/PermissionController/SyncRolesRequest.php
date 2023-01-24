@@ -24,8 +24,8 @@ class SyncRolesRequest extends FormRequest
     public function rules()
     {
         return [
-            'permission_id' => 'required|integer',
-            'role_ids' => 'required|array',
+            'permissionId' => 'required|integer',
+            'roleIds' => 'required|array',
         ];
     }
 }
