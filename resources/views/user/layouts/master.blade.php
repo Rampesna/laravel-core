@@ -7,17 +7,20 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
 
-    <link id="themePlugin" href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link id="themePlugin" href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet"
+          type="text/css"/>
     <link id="themeBundle" href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css"/>
 
-    <link href="{{ asset('assets/plugins/custom/selectpicker/css/bootstrap-select.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/plugins/custom/selectpicker/css/bootstrap-select.css') }}" rel="stylesheet"
+          type="text/css"/>
 
     @yield('customStyles')
 
 </head>
 
-<body id="kt_body" class="header-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+<body id="kt_body" class="header-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"
+      style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
 
 <div id="loader"></div>
 
@@ -56,7 +59,7 @@
 
 <script>
 
-    var authUserToken = `Bearer {{ session('_token') }}`;
+    var token = `Bearer {{ session('_token') }}`;
     var authUserId = `{{ session('_user_id') }}`;
     var themeMode = `{{ session('_theme') == '' ? 'light' : session('_theme') }}`;
     var jqxGridGlobalTheme = themeMode === 'light' ? 'metro' : 'metrodark';
@@ -65,17 +68,44 @@
     var ThemeSelector = $('#ThemeSelector');
     var CompanySelector = $('#CompanySelector');
 
+    var selectedCompaniesInput = $('#SelectedCompanies');
+    selectedCompaniesInput.selectpicker();
+
     function getUserCompanies() {
         $.ajax({
             type: 'get',
-            url: '',
+            url: '{{route('user.api.getCompanies')}}',
             headers: {
                 'Accept': 'application/json',
                 'Authorization': token
             },
             data: {},
-            success: function () {
+            success: function (response) {
+                selectedCompaniesInput.empty();
+                $.each(response.data, function (i, company) {
+                    selectedCompaniesInput.append(`<option value="${company.id}">${company.title}</option>`);
 
+                });
+                $.ajax({
+                    async: false,
+                    type: 'get',
+                    url: '{{ route('user.api.getSelectedCompanies') }}',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': token
+                    },
+                    data: {},
+                    success: function (response) {
+                        selectedCompaniesInput.val($.map(response.data, function (company) {
+                            return company.id;
+                        }));
+                        selectedCompaniesInput.selectpicker('refresh');
+                    },
+                    error: function () {
+                        console.log(error);
+                        toastr.error('Seçili Firmalar Getirilirken Hata Oluştu! Lütfen Geliştirici Ekibi İle İletişime Geçin.');
+                    }
+                });
             },
             error: function (error) {
                 console.log(error);
@@ -89,6 +119,37 @@
             }
         });
     }
+
+
+    selectedCompaniesInput.change(function () {
+        var companyIds = $(this).val();
+        console.log(companyIds)
+        if (companyIds.length === 0) {
+           toastr.error('En Az Bir Firma Seçmelisiniz!');
+           return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '{{ route('user.api.setSelectedCompanies') }}',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': token
+            },
+            data: {
+                companyIds: companyIds
+            },
+            success: function () {
+
+            },
+            error: function (error) {
+                console.log(error);
+                toastr.error('Seçili Firmalar Güncellenirken Serviste Hata Oluştu! Lütfen Daha Sonra Tekrar Deneyin.');
+            }
+        });
+
+    });
+
+    getUserCompanies();
 
     ThemeSelector.change(function () {
 

@@ -8,6 +8,9 @@ use App\Core\ServiceResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class UserService implements IUserService
 {
     /**
@@ -136,6 +139,148 @@ class UserService implements IUserService
                 __('ServiceResponse/Eloquent/UserService.delete.success'),
                 200,
                 $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    /**
+     * @param int $userId
+     * @return ServiceResponse
+     */
+    public function getCompanies(int $userId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            return new ServiceResponse(
+                true,
+                'User companies',
+                200,
+                $user->getData()->companies
+            );
+        } else {
+            return $user;
+        }
+    }
+
+
+    /**
+     * @param int $userId
+     * @param int $roleId
+     * @return ServiceResponse
+     */
+    public function attachRole(int $userId, int $roleId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            $user->getData()->roles()->attach($roleId);
+            return new ServiceResponse(
+                true,
+                'Role attached to user',
+                200,
+                $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    /**
+     * @param int $userId
+     * @param int $roleId
+     * @return ServiceResponse
+     */
+    public function detachRole(int $userId, int $roleId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            $user->getData()->roles()->detach($roleId);
+            return new ServiceResponse(
+                true,
+                'Role detached from user',
+                200,
+                $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    /**
+     * @param int $userId
+     * @return ServiceResponse
+     */
+    public function getRoles(int $userId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            return new ServiceResponse(
+                true,
+                'User roles',
+                200,
+                $user->getData()->roles
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    /**
+     * @param int $userId
+     * @param array $roleId
+     * @return ServiceResponse
+     */
+    public function syncRoles(int $userId, array $roleId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            $user->getData()->roles()->sync($roleId);
+            return new ServiceResponse(
+                true,
+                'User roles synced',
+                200,
+                $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    /**
+     * @param int $userId
+     * @param array $companyIds
+     * @return ServiceResponse
+     */
+    public function setSelectedCompanies(int $userId, array $companyIds): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            $user->getData()->selectedCompanies()->sync($companyIds);
+            return new ServiceResponse(
+                true,
+                'User selected company synced',
+                200,
+                $user->getData()
+            );
+        } else {
+            return $user;
+        }
+    }
+
+    /**
+     * @param int $userId
+     * @return ServiceResponse
+     */
+    public function getSelectedCompanies(int $userId): ServiceResponse
+    {
+        $user = $this->getById($userId);
+        if ($user->isSuccess()) {
+            return new ServiceResponse(
+                true,
+                'User selected companies',
+                200,
+                $user->getData()->selectedCompanies
             );
         } else {
             return $user;

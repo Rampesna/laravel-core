@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*) public/$1 [L]
+</IfModule>
+
+<Files .env>
+    order allow,deny
+    Deny from all
+</Files>
+
+<Files .composer.json>
+    order allow,deny
+    Deny from all
+</Files>
+
+<Files .composer.lock>
+    order allow,deny
+    Deny from all
+</Files>

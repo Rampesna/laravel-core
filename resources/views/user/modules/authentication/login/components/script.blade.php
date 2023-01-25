@@ -31,12 +31,12 @@
                     password: password,
                 },
                 success: function (response) {
-                    window.location.href = `{{ route('user.web.authentication.oAuth') }}?token=${response.response.token}&remember=${remember}`;
+                    window.location.href = `{{ route('user.web.authentication.oAuth') }}?token=${response.data.token}&remember=${remember}`;
                 },
                 error: function (error) {
                     console.log(error);
                     LoginButton.attr('disabled', false);
-                    var errors = error.responseJSON.response;
+                    var errors = error.responseJSON.data;
                     if (error.status === 422) {
                         if (errors.email) {
                             toastr.error(errors.email[0]);

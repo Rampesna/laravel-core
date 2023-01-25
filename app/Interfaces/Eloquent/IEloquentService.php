@@ -28,4 +28,7 @@ interface IEloquentService
     public function delete(
         int $id
     ): ServiceResponse;
+
+
+
 }
