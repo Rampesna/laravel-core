@@ -34,7 +34,7 @@ class AuthenticationController extends Controller
                 return redirect()->route('user.web.authentication.login.index');
             }
 
-            session()->put('_token', $token->getData()->token);
+            session()->put('_token', $request->token);
             session()->put('_user_id', $employee->id);
             session()->put('_user_name', $employee->name);
             session()->put('_user_email', $employee->email);

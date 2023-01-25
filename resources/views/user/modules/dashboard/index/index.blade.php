@@ -7,8 +7,6 @@
 
 @section('content')
 
-
-
 @endsection
 
 @section('customStyles')

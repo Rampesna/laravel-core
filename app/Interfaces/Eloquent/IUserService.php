@@ -79,12 +79,24 @@ interface IUserService extends IEloquentService
     ): ServiceResponse;
 
 
+    /**
+     * @param int $userId
+     * @param array $companyIds
+     * @return ServiceResponse
+     */
+    public function setSelectedCompanies(
+        int $userId,
+        array $companyIds
+    ): ServiceResponse;
 
 
-
-
-
-
+    /**
+     * @param int $userId
+     * @return ServiceResponse
+     */
+    public function getSelectedCompanies(
+        int $userId
+    ): ServiceResponse;
 
 
 }

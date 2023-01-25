@@ -17,6 +17,8 @@ Route::middleware([
     Route::get('getById', [UserController::class, 'getById'])->name('user.api.getById');
     Route::get('getByEmail', [UserController::class, 'getByEmail'])->name('user.api.getByEmail');
     Route::get('getCompanies', [UserController::class, 'getCompanies'])->name('user.api.getCompanies');
+    Route::post('setSelectedCompanies', [UserController::class, 'setSelectedCompanies'])->name('user.api.setSelectedCompanies');
+    Route::get('getSelectedCompanies', [UserController::class, 'getSelectedCompanies'])->name('user.api.getSelectedCompanies');
     Route::get('getRoles', [UserController::class, 'getRoles'])->name('user.api.getRoles');
     Route::post('attachRole', [UserController::class, 'attachRole'])->name('user.api.attachRole');
     Route::post('detachRole', [UserController::class, 'detachRole'])->name('user.api.detachRole');
