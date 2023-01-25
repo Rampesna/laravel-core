@@ -37,10 +37,10 @@ interface IRoleService extends IEloquentService{
 
     /**
      * @param int $id
-     * @param int $permissionId
+     * @param array $permissionIds
      * @return ServiceResponse
      */
-    public function attachPermissions(int $id, int $permissionId): ServiceResponse;
+    public function attachPermissions(int $id, array $permissionIds): ServiceResponse;
 
     /**
      * @param int $id
@@ -48,4 +48,16 @@ interface IRoleService extends IEloquentService{
      * @return ServiceResponse
      */
     public function detachPermissions(int $id, int $permissionId): ServiceResponse;
+
+    /**
+     * @param int $pageIndex
+     * @param int $pageSize
+     * @param string|null $keyword
+     * @return ServiceResponse
+     */
+    public function getAllUserRoles(
+        int     $pageIndex = 0,
+        int     $pageSize = 10,
+        ?string $keyword = null
+    ): ServiceResponse;
 }

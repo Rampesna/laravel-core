@@ -9,6 +9,7 @@ use App\Http\Requests\Api\UserGuard\RoleController\CreateRequest;
 use App\Http\Requests\Api\UserGuard\RoleController\DeleteRequest;
 use App\Http\Requests\Api\UserGuard\RoleController\DetachPermissionRequest;
 use App\Http\Requests\Api\UserGuard\RoleController\GetAllRequest;
+use App\Http\Requests\Api\UserGuard\RoleController\GetAllUserRolesRequest;
 use App\Http\Requests\Api\UserGuard\RoleController\GetByIdRequest;
 use App\Http\Requests\Api\UserGuard\RoleController\GetPermissionsRequest;
 use App\Http\Requests\Api\UserGuard\RoleController\SyncPermissionsRequest;
@@ -78,7 +79,7 @@ class RoleController extends Controller
     public function getPermissions(GetPermissionsRequest $request)
     {
         $response = $this->IRoleService->getPermissions(
-            $request->id
+            $request->roleId
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -113,7 +114,7 @@ class RoleController extends Controller
     public function attachPermission(AttachPermissionRequest $request){
         $response = $this->IRoleService->attachPermissions(
             $request->roleId,
-            $request->permissionId
+            $request->permissionIds
         );
         return $this->httpResponse(
             $response->getMessage(),
@@ -177,6 +178,20 @@ class RoleController extends Controller
     public function getById(GetByIdRequest $request){
         $response = $this->IRoleService->getById(
             $request->roleId
+        );
+        return $this->httpResponse(
+            $response->getMessage(),
+            $response->getStatusCode(),
+            $response->getData(),
+            $response->isSuccess()
+        );
+     }
+
+     public function getAllUserRoles(GetAllUserRolesRequest $request){
+        $response = $this->IRoleService->getAllUserRoles(
+            $request->pageIndex,
+            $request->pageSize,
+            $request->keyword
         );
         return $this->httpResponse(
             $response->getMessage(),

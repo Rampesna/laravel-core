@@ -13,16 +13,18 @@ interface IPermissionService extends IEloquentService{
 
     /**
      * @param string $name
+     * @param int $paren_id
      * @return ServiceResponse
      */
-    public function create(string $name): ServiceResponse;
+    public function create(string $name,int $paren_id): ServiceResponse;
 
     /**
      * @param int $id
      * @param string $name
+     * @param int $parent_id
      * @return ServiceResponse
      */
-    public function update(int $id, string $name): ServiceResponse;
+    public function update(int $id, string $name,int $parent_id): ServiceResponse;
 
     /**
      * @param int $id
@@ -52,6 +54,11 @@ interface IPermissionService extends IEloquentService{
     public function detachRoles(int $id, int $roleId): ServiceResponse;
 
 
+    /**
+     * @param int|null $id
+     * @return ServiceResponse
+     */
+    public function getByParentId(?int $id = null): ServiceResponse;
 
 
 }

@@ -10,6 +10,7 @@ use App\Http\Requests\Api\UserGuard\PermissionController\DeleteRequest;
 use App\Http\Requests\Api\UserGuard\PermissionController\DetachRoleRequest;
 use App\Http\Requests\Api\UserGuard\PermissionController\GetAllRequest;
 use App\Http\Requests\Api\UserGuard\PermissionController\GetByIdRequest;
+use App\Http\Requests\Api\UserGuard\PermissionController\GetByParentIdRequest;
 use App\Http\Requests\Api\UserGuard\PermissionController\GetRolesRequest;
 use App\Http\Requests\Api\UserGuard\PermissionController\SyncRolesRequest;
 use App\Http\Requests\Api\UserGuard\PermissionController\UpdateRequest;
@@ -52,7 +53,7 @@ class PermissionController extends Controller
 
     public function create(CreateRequest $request)
     {
-        $response = $this->IPermissionService->create($request->name);
+        $response = $this->IPermissionService->create($request->name, $request->parent_id);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
@@ -63,7 +64,7 @@ class PermissionController extends Controller
 
     public function update(UpdateRequest $request)
     {
-        $response = $this->IPermissionService->update($request->id, $request->name);
+        $response = $this->IPermissionService->update($request->id, $request->name, $request->parent_id);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),
@@ -119,6 +120,18 @@ class PermissionController extends Controller
     public function syncRoles(SyncRolesRequest $request)
     {
         $response = $this->IPermissionService->syncRoles($request->permissionId, $request->roleIds);
+        return $this->httpResponse(
+            $response->getMessage(),
+            $response->getStatusCode(),
+            $response->getData(),
+            $response->isSuccess()
+        );
+    }
+
+    public function getByParentId(GetByParentIdRequest $request)
+    {
+
+        $response = $this->IPermissionService->getByParentId($request->parentId ?? null);
         return $this->httpResponse(
             $response->getMessage(),
             $response->getStatusCode(),

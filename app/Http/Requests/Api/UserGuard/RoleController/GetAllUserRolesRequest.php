@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\UserGuard\PermissionController;
+namespace App\Http\Requests\Api\UserGuard\RoleController;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class GetAllUserRolesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer',
-            'name' => 'required|string',
-            'parent_id' => 'nullable|integer'
+            'pageIndex' => 'required|integer|min:0',
+            'pageSize' => 'required|integer|min:1',
+            'keyword' => 'nullable',
         ];
     }
 }

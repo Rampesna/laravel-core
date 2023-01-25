@@ -54,10 +54,12 @@ class PermissionService implements IPermissionService {
      * @param string $name
      * @return ServiceResponse
      */
-    public function create(string $name): ServiceResponse
+    public function create(string $name,int $parent_id): ServiceResponse
     {
         $permission = new Permission();
         $permission->name = $name;
+        $permission->parent_id = $parent_id;
+
         $permission->save();
         return new ServiceResponse(true, 'Permission created successfully', 200, $permission);
     }
@@ -65,13 +67,16 @@ class PermissionService implements IPermissionService {
     /**
      * @param int $id
      * @param string $name
+     * @param int $parent_id
      * @return ServiceResponse
      */
-    public function update(int $id, string $name): ServiceResponse
+    public function update(int $id, string $name,int $parent_id): ServiceResponse
     {
         $permission = Permission::find($id);
         if ($permission) {
             $permission->name = $name;
+            $permission->parent_id = $parent_id;
+
             $permission->save();
             return new ServiceResponse(true, 'Permission updated successfully', 200, $permission);
         } else {
@@ -136,6 +141,20 @@ class PermissionService implements IPermissionService {
         if ($permission) {
             $permission->roles()->detach($roleId);
             return new ServiceResponse(true, 'Permission role detached successfully', 200, $permission->roles);
+        } else {
+            return new ServiceResponse(false, 'Permission not found', 404, null);
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return ServiceResponse
+     */
+    public function getByParentId( ?int $id = null): ServiceResponse
+    {
+        $permission = Permission::where('top_id', $id)->get();
+        if ($permission) {
+            return new ServiceResponse(true, 'Permission found', 200, $permission);
         } else {
             return new ServiceResponse(false, 'Permission not found', 404, null);
         }

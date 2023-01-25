@@ -25,7 +25,7 @@ class AttachPermissionRequest extends FormRequest
     {
         return [
             'roleId' => 'required|integer',
-            'permissionId' => 'required|integer',
+            'permissionIds' => 'required|array',
         ];
     }
 }

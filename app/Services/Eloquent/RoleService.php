@@ -73,14 +73,14 @@ class RoleService implements IRoleService
 
     /**
      * @param int $id
-     * @param int $permissionId
+     * @param array $permissionIds
      * @return ServiceResponse
      */
-    public function attachPermissions(int $id, int $permissionId): ServiceResponse
+    public function attachPermissions(int $id, array $permissionIds): ServiceResponse
     {
         $role = Role::find($id);
         if ($role) {
-            $role->permissions()->attach($permissionId);
+            $role->permissions()->attach($permissionIds);
             return new ServiceResponse(true, 'Role permissions attached successfully', 200, $role->permissions);
         } else {
             return new ServiceResponse(false, 'Role not found', 404, null);
@@ -139,5 +139,26 @@ class RoleService implements IRoleService
         } else {
             return new ServiceResponse(false, 'Role not found', 404, null);
         }
+    }
+
+    public function getAllUserRoles(int $pageIndex = 0, int $pageSize = 10, ?string $keyword = null): ServiceResponse
+    {
+        $roles = Role::with([]);
+        if ($keyword) {
+            $roles = $roles->where('name', 'like', '%' . $keyword . '%');
+        }
+        return new ServiceResponse(
+            true,
+            'All user roles',
+            200,
+            [
+                'totalCount' => $roles->count(),
+                'pageIndex' => $pageIndex,
+                'pageSize' => $pageSize,
+                'userRoles' => $roles->skip($pageSize * $pageIndex)
+                    ->take($pageSize)
+                    ->get()
+            ]
+        );
     }
 }

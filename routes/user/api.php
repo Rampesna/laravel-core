@@ -30,6 +30,7 @@ Route::middleware([
         'prefix' => 'roles',
     ], function () {
         Route::get('getAll', [RoleController::class, 'getAll'])->name('roles.api.getAll');
+        Route::get('getAllUserRoles', [RoleController::class, 'getAllUserRoles'])->name('roles.api.getAllUserRoles');
         Route::post('create', [RoleController::class, 'create'])->name('roles.api.create');
         Route::put('update', [RoleController::class, 'update'])->name('roles.api.update');
         Route::delete('delete', [RoleController::class, 'delete'])->name('roles.api.delete');
@@ -49,6 +50,8 @@ Route::middleware([
         Route::delete('delete', [PermissionController::class, 'delete'])->name('permissions.api.delete');
         Route::get('getById', [PermissionController::class, 'getById'])->name('permissions.api.getById');
         Route::get('getRoles', [PermissionController::class, 'getRoles'])->name('permissions.api.getRoles');
+        Route::get('getByParentId', [PermissionController::class, 'getByParentId'])->name('permissions.api.getByParentId');
+
 //        Route::post('attachRole', [PermissionController::class, 'attachRole'])->name('permissions.api.attachRole');
 //        Route::post('detachRole', [PermissionController::class, 'detachRole'])->name('permissions.api.detachRole');
 //        Route::post('syncRoles', [PermissionController::class, 'syncRoles'])->name('permissions.api.syncRoles');
